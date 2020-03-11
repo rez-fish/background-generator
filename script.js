@@ -1,71 +1,30 @@
-var button = document.getElementById('enter');
-var input = document.getElementById('user-input');
-var ul = document.querySelector('ul');
-var li = document.getElementsByTagName('li')
+let css = document.querySelector("h3");
+let color1 = document.querySelector(".color1");
+let color2 = document.querySelector(".color2");
+let body = document.getElementById("gradient");
+let button = document.querySelector("button");
+let ul = document.getElementById("colors")
+let li = document.createElement("li");
+let clearColors = document.querySelector(".clear");
+let p = document.createElement("p");
 
-button.addEventListener('click', Onclick);
-input.addEventListener('keypress', addElement);
-
-
-liEvent();
-buttonListElement();
-
-function checkInputlength() {
-    return input.value.length;
+function setGradient() {
+    body.style.background = `linear-gradient(to right, ${color1.value}, ${color2.value})`;
 }
 
+color1.addEventListener("input", setGradient);
+color2.addEventListener("input", setGradient);
 
-function createListElement() {
+button.addEventListener("click", function myFunction() {
+    let node = document.createElement("LI");
+    let textnode = document.createTextNode(`linear-gradient(to right, ${color1.value}, ${color2.value})`);
+    let div = document.createElement("div");
+    let divText = document.createTextNode("Hey")
+    node.appendChild(textnode);
+    node.style.background = `linear-gradient(to right, ${color1.value}, ${color2.value})`
+    document.getElementById("colors").appendChild(node);
+});
 
-    var li = document.createElement("li");
-    var button = document.createElement('button');
-    li.appendChild(document.createTextNode(input.value));
-    ul.appendChild(li);
-    li.appendChild(button)
-    button.innerHTML = "delete";
-    input.value = "";
-
-    liEvent();
-    buttonListElement();
-}
-
-
-
-function Onclick() {
-
-    if (checkInputlength() > 0) {
-        createListElement();
-    }
-
-}
-
-
-function addElement() {
-
-    if (checkInputlength() > 0 && event.keyCode === 13) {
-        createListElement();
-    }
-}
-
-function liEvent() {
-    for (i = 0; i < li.length; i++) {
-        li[i].addEventListener('click', changeClass)
-    }
-}
-
-function changeClass() {
-    this.classList.toggle('done');
-}
-
-function buttonListElement() {
-    var button = document.querySelectorAll('li button');
-    for (i = 0; i < button.length; i++) {
-        button[i].addEventListener('click', clearElement)
-    }
-}
-
-function clearElement() {
-    for (var i = 0; i < li.length; i++) {
-        this.parentNode.remove()
-    }
-}
+clearColors.addEventListener("click", function () {
+    ul.innerHTML = ''
+})
